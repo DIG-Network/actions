@@ -1,0 +1,52 @@
+name: "DIG CLI Store Management Action"
+
+description: "A reusable action to clone, commit, and push to a DIG store."
+
+inputs:
+  store_id:
+    description: "The Store ID for the DIG store."
+    required: true
+  remote_password:
+    description: "The password for the remote peer."
+    required: true
+  remote_username:
+    description: "The username for the remote peer."
+    required: true
+  remote_ip:
+    description: "The IP address of the remote peer."
+    required: true
+  seed_phrase:
+    description: "The seed phrase for the wallet that owns the datastore."
+    required: true
+
+runs:
+  using: 'composite'
+  steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+
+    - name: Install DIG CLI
+      shell: bash
+      run: npm install -g @dignetwork/dig-chia-cli@alpha
+
+    - name: Set up DIG wallet
+      shell: bash
+      run: dig wallet import ${{ inputs.seed_phrase }}
+      
+
+    - name: Set up DIG remote credentials
+      shell: bash
+      run: |
+        dig remote set peer ${{ inputs.remote_ip }} --username ${{ inputs.remote_username }} --password ${{ inputs.remote_password }} 
+
+    - name: Clone DIG store
+      shell: bash
+      run: dig clone ${{ inputs.store_id }}
+
+    - name: Commit to DIG store
+      shell: bash
+      run: dig commit
+
+    - name: Push to DIG store
+      shell: bash
+      run: dig push
