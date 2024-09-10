@@ -1,4 +1,4 @@
-name: "DIG CLI Store Management Action"
+name: "Push To DIG Network"
 
 description: "A reusable action to clone, commit, and push to a DIG store."
 
