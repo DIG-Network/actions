@@ -33,11 +33,6 @@ runs:
       shell: bash
       run: dig wallet import --mnemonic "${{ inputs.seed_phrase }}"
 
-    - name: Set up DIG wallet
-      shell: bash
-      run: dig init
-      
-
     - name: Set up DIG remote credentials
       shell: bash
       run: |
