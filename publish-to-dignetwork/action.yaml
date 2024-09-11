@@ -31,21 +31,21 @@ runs:
 
     - name: Set up DIG wallet
       shell: bash
-      run: dig wallet import --mnemonic "${{ inputs.seed_phrase }}"
+      run: dignode wallet import --mnemonic "${{ inputs.seed_phrase }}"
 
     - name: Set up DIG remote credentials
       shell: bash
       run: |
-        dig remote set peer ${{ inputs.remote_ip }} --username ${{ inputs.remote_username }} --password ${{ inputs.remote_password }} 
+        dignode remote set peer ${{ inputs.remote_ip }} --username ${{ inputs.remote_username }} --password ${{ inputs.remote_password }} 
 
     - name: Clone DIG store
       shell: bash
-      run: dig clone ${{ inputs.store_id }}
+      run: dignode clone ${{ inputs.store_id }}
 
     - name: Commit to DIG store
       shell: bash
-      run: dig commit
+      run: dignode commit
 
     - name: Push to DIG store
       shell: bash
-      run: dig push
+      run: dignode push
