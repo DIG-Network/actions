@@ -38,10 +38,6 @@ runs:
       run: |
         dignode remote set peer ${{ inputs.remote_ip }} --username ${{ inputs.remote_username }} --password ${{ inputs.remote_password }} 
 
-    - name: Clone DIG store
-      shell: bash
-      run: dignode clone ${{ inputs.store_id }}
-
     - name: Commit to DIG store
       shell: bash
       run: dignode commit
